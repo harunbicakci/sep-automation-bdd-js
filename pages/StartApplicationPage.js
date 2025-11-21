@@ -1,4 +1,5 @@
 import { BasePage } from "./BasePage.js";
+import { expect } from "@playwright/test";
 
 export class StartApplicationPage extends BasePage {
   /**
@@ -127,6 +128,27 @@ export class StartApplicationPage extends BasePage {
 
     this.productNameOnLeftMenu = page.locator(
       "//a[@href='https://www.cydeo.com']"
+      // //p[@class='checkout-title']
+    );
+
+    this.leftMenuCydeoLogo = page.locator(
+      "//div[@class='row left-main ng-star-inserted']//p[@class='checkout-title']/img[contains(@src, 'logo.svg')]"
+    );
+
+    this.leftMenuSecureCheckout = page.locator("//p[@class='checkout-title']");
+
+    this.leftMenuLockImage = page.locator(
+      "//div[@class='row left-main ng-star-inserted']//p[@class='checkout-title']/img[contains(@src, 'lock.svg')]"
+    );
+
+    this.footerCydeoLogo = page.locator(
+      "//div[@class='row footer-row']//img[contains(@src, 'logo.svg')]"
+    );
+
+    this.leftFooterLinks = page.locator(".details-footer a");
+
+    this.rightFooterText = page.locator(
+      "//div[contains(@class,'show-step')]//div[contains(@class,'right-footer')]//p[contains(normalize-space(.),'Need help?')]"
     );
   }
 
@@ -188,5 +210,33 @@ export class StartApplicationPage extends BasePage {
 
   async clickNextButton() {
     await this.nextButton.click();
+  }
+
+  async validateLeftFooter() {
+    let expectedLeftFooterTexts = [
+      "logo",
+      "Terms and conditions",
+      "Privacy Policy",
+      "Disclaimer",
+      "Cookie Policy",
+    ];
+
+    await expect(this.leftFooterLinks).toHaveCount(
+      expectedLeftFooterTexts.length
+    );
+
+    for (let i = 0; i < expectedLeftFooterTexts.length; i++) {
+      let item = this.leftFooterLinks.nth(i);
+
+      await expect(item).toBeVisible();
+
+      if (i === 0) {
+        let img = item.locator("img");
+        await expect(img).toBeVisible();
+      } else {
+        let text = (await item.innerText()).trim();
+        expect(text).toBe(expectedLeftFooterTexts[i]);
+      }
+    }
   }
 }
