@@ -6,9 +6,17 @@ Feature: Click on the next button on step 1
     #* AC1: The next button should take customers to step 2 when given valid information.
     #*              a. Test by providing all fields
     #*              b. Test by providing only the required fields
-    
+
 
     #TODO: Create scenarios that cover all the acceptance criteria
 
     Background:
         Given user is on the enrollment page
+
+    Scenario: Verify next button is clickable when all fields provided
+        When user has completed step one with valid information
+        Then user is on step two of the enrollment process
+
+    Scenario: Verify next button is clickable when only required fields provided
+        When user has completed step one with only required fields
+        Then user is on step two of the enrollment process
