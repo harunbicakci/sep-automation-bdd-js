@@ -4,6 +4,7 @@ import {
   paymentPlanPage,
   page,
   startApplicationPage,
+  reviewPaymentPage,
 } from "../../globalPagesSetup.js";
 import { productInfo } from "../../utilities/qa-data-reader.js";
 import { start } from "repl";
@@ -35,4 +36,40 @@ Then("the next button will be enabled", async function () {
 
 When("user clicks installments payment option", async function () {
   await paymentPlanPage.selectPaymentPlan("installments");
+});
+
+When("user clicks next button", async function () {
+  await paymentPlanPage.clickNextButton();
+});
+
+Then("user is on step three of the enrollment process", async function () {
+  await reviewPaymentPage.paymentForm.isVisible();
+});
+
+Then(
+  "user can see step one and step two are green and step three is blue color",
+  async function () {
+    await expect(reviewPaymentPage.step1StepperCircle).toHaveCSS(
+      "background-color",
+      "rgb(172, 245, 138)"
+    );
+    await expect(reviewPaymentPage.step2StepperCircle).toHaveCSS(
+      "background-color",
+      "rgb(172, 245, 138)"
+    );
+
+    await expect(reviewPaymentPage.step3StepperCircle).toHaveCSS(
+      "background-color",
+      "rgb(1, 201, 255)"
+    );
+  }
+);
+
+Then("price summary and back buttons are displayed", async function () {
+  await reviewPaymentPage.totalAmount.isVisible();
+  await reviewPaymentPage.backButton.isVisible();
+});
+
+Then("pay button is displayed", async function () {
+  await reviewPaymentPage.backButton.isVisible();
 });
