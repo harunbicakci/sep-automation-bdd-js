@@ -125,7 +125,9 @@ export class StartApplicationPage extends BasePage {
 
     this.originalPrice = page.locator("//s[contains(.,'$')]");
 
-    
+    this.productNameOnLeftMenu = page.locator(
+      "//a[@href='https://www.cydeo.com']"
+    );
   }
 
   /**
