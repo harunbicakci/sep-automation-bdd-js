@@ -12,3 +12,12 @@ Feature: Display the steps of the checkout process
 
     Background:
         Given user is on the enrollment page
+
+    Scenario: Valdiate system displays on which step the user is
+        Then user can see start application payment plan and review parts displayed
+
+    Scenario: Validate user can see Start Application part is in blue
+        Then user can see step one is marked blue
+
+    Scenario: Validate the payment plan and review parts are in grey
+        Then user can see payment plan and review parts in grey
