@@ -16,3 +16,22 @@ Feature: Enter my Personal details
 
     Background:
         Given user is on the enrollment page
+
+    Scenario: Validate the field types and values are as expected
+        Then first name field is visible
+        And last name field is visible
+        And email field is visible and accepts email format
+        And phone field is visible and accepts numbers only
+    @sep10-2
+    Scenario: Validate "How did you hear about us" field is a dropdown list
+        Then how did you hear about us field is a standard dropdown
+
+    Scenario: Validate next button is disabled if required data is missing
+        When valid first name is entered
+        Then the next button will be disabled
+        When valid last name is entered
+        Then the next button will be disabled
+        When valid email is entered
+        Then the next button will be disabled
+        When valid phone number is entered
+        Then the next button will be enabled

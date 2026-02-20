@@ -15,3 +15,16 @@ Feature: Display the product information
 
     Background:
         Given user is on the enrollment page
+
+    Scenario: Validate user can see the product name and the price
+        Then product name is displayed
+    
+    Scenario: Validate the product name on the information card matches the product name on left menu
+        Then product name matches with the product name on the left menu
+
+    Scenario: Validate the flexible payments plan is displayed 
+        Then flexible payments plan is displayed
+
+    Scenario: Validate start date, return policy and final date for returns are displayed
+        Then the program start date is displayed
+        And return policy and final date should be displayed

@@ -165,16 +165,18 @@ export class PaymentPlanPage extends BasePage {
 
     this.UpfrontText = page.locator("//span[@class='payment-type']");
 
+    this.extentionPanel1 = page.locator("#cdk-accordion-child-0");
 
+    this.extentionPanel2 = page.locator("#cdk-accordion-child-1");
   }
 
   async selectPaymentPlan(paymentPlan) {
     paymentPlan = paymentPlan.toLowerCase();
     switch (true) {
-      case paymentPlan.includes('upfront'):
+      case paymentPlan.includes("upfront"):
         await this.upfrontPaymentOption.click();
         break;
-      case paymentPlan.includes('installments'):
+      case paymentPlan.includes("installments"):
         await this.installmentsPaymentOption.click();
         break;
       default:
@@ -185,7 +187,4 @@ export class PaymentPlanPage extends BasePage {
   async clickNextButton() {
     await this.activeNextButton.click();
   }
-
-
-
 }
